@@ -1,0 +1,94 @@
+version: 2
+orbs:
+  aws-cli: circleci/aws-cli@0.1.19
+  aws-cloudformation: orbss/aws-cloudformation@0.1.6
+jobs:
+  build:      
+    machine:
+      image: ubuntu-1604:201903-01
+    environment:
+      ## STAGING
+      # General Parameters
+      EnvNameStage: "Staging"
+      StackNameStage: "cfn-stage"
+      S3BucketStage: "jacuzzi-cfn-lambda"
+      # Filter Logs Parameters
+      LambdaTriggerFilterLogsStage: "CWEvent" # CWEvent or ECS
+      LogDurationFilterLogsStage: "3"
+      SearchJsonFilterLogsStage: "{'groups':[{'groupname':'staging-jacuzzi-cloud-api','keywords':['CreateSpaException']}]}"
+      ReceipientAddressesFilterLogsStage: "larry.ovalle@jacuzzi.com,ank.nath@jacuzzi.com,wajahat@nclouds.com"
+      SenderFilterLogsStage: "larry.ovalle@jacuzzi.com"
+      CronExpFilterLogsStage: "cron(*/2 * * * ? *)"
+      MailSubjectFilterLogsStage: "Exception while creating SPA"
+      # DynamoDB Backup Parameters
+      LambdaTriggerDynamoDBStage: "CWEvent"
+      MaxBackupsDynamoDBStage: "5"
+      TableNamesDynamoDBStage: "staging-synchronizer-checkpoint,staging-spa-event-processor-snapshot,staging-spa-event-processor-journal,staging-spa-event-processor-checkpoint"
+      CronExpDynamoDBStage: "cron(0 5 * * ? *)"
+      # Describe Tasks Parameters
+      LambdaTriggerDescribeTasksStage: "ECS"
+      ClusterInfoStage: "{'clusters':[{'cluster_name':'staging-operation-link-cluster','service_names':['staging-cloud-synchronizer','staging-spa-event-processor']}]}"
+      ClusterArnStage: "arn:aws:ecs:us-east-1:947129514162:cluster/staging-operation-link-cluster"
+      SenderDescribeTasksStage: "larry.ovalle@jacuzzi.com"
+      ReceipientAddressesDescribeTasksStage: "larry.ovalle@jacuzzi.com,ank.nath@jacuzzi.com,wajahat@nclouds.com"
+      MailSubjectDescribeTasksStage: "Tasks stopped in quick succession"
+      # Key Rotation Params
+      LambdaTriggerKeyRotation: "CWEvent"
+      WarningPeriodStage: "5"
+      ExpirationDaysStage: "90"
+      ExcludeListStage: "circleci,circleci-lambda"
+      DeletionStage: "False" # Delete AWS ACCESS KEYS?
+      ReceipientEmailsKeyRotationStage: ""larry.ovalle@jacuzzi.com,ank.nath@jacuzzi.com,wajahat@nclouds.com""
+      SenderEmailKeyRotationStage: "larry.ovalle@jacuzzi.com"
+      CronExpKeyRotationStage: "cron(0 5 * * ? *)"
+      
+      ## PROD
+      # General Parameters
+      EnvNameProd: "Prod"
+      StackNameProd: "cfn-prod"
+      S3BucketProd: "jacuzzi-cfn-prod"
+      # Filter Logs Parameters
+      LambdaTriggerFilterLogsProd: "CWEvent"
+      LogDurationFilterLogsProd: "3"
+      SearchJsonFilterLogsProd: "{'groups':[{'groupname':'prod-jacuzzi-cloud-api','keywords':['CreateSpaException']}]}"
+      ReceipientAddressesFilterLogsProd: "larry.ovalle@jacuzzi.com,ank.nath@jacuzzi.com,wajahat@nclouds.com"
+      SenderFilterLogsProd: "larry.ovalle@jacuzzi.com"
+      CronExpFilterLogsProd: "cron(*/2 * * * ? *)"
+      MailSubjectFilterLogsProd: "Exception while creating SPA"
+      # DynamoDB Backup Parameters
+      LambdaTriggerDynamoDBProd: "CWEvent"
+      MaxBackupsDynamoDBProd: "5"
+      TableNamesDynamoDBProd: "prod-synchronizer-checkpoint,prod-spa-event-processor-snapshot,prod-spa-event-processor-journal,prod-spa-event-processor-checkpoint"
+      CronExpDynamoDBProd: "cron(0 5 * * ? *)"
+      # Describe Tasks Parameters
+      LambdaTriggerDescribeTasksProd: "ECS"
+      ClusterInfoProd: "{'clusters':[{'cluster_name':'prod-operation-link-cluster','service_names':['prod-spa-event-processor','prod-cloud-synchronizer']}]}"
+      ClusterArnProd: "arn:aws:ecs:us-east-1:947129514162:cluster/prod-operation-link-cluster"
+      SenderDescribeTasksProd: "larry.ovalle@jacuzzi.com"
+      ReceipientAddressesDescribeTasksProd: "larry.ovalle@jacuzzi.com,ank.nath@jacuzzi.com,wajahat@nclouds.com"
+      MailSubjectDescribeTasksProd: "Tasks stopped in quick succession"
+      # Key Rotation Params
+      WarningPeriodProd: "5"
+      ExpirationDaysProd: "90"
+      ExcludeListProd: "circleci,circleci-lambda"
+      DeletionProd: "False" # Delete AWS ACCESS KEYS?
+      ReceipientEmailsKeyRotationProd: "larry.ovalle@jacuzzi.com,ank.nath@jacuzzi.com,wajahat@nclouds.com"
+      SenderEmailKeyRotationProd: "larry.ovalle@jacuzzi.com"
+      CronExpKeyRotationProd: "cron(0 5 * * ? *)"
+
+    steps:
+      - checkout
+      - run:
+          name: Running the script.
+          command: source .circleci/bash.sh
+
+workflows:
+  version: 2
+  default-workflow:
+    jobs:
+    - build:
+        filters:
+            branches:
+                only:
+                    - release/current
+                    - master
