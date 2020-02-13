@@ -1,0 +1,239 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: Template for Lambda Function with trigger.
+
+Parameters:
+  EnvName:
+    Type: String
+    Description: Name of the environment.
+
+  S3Bucket:
+    Type: String
+    Description: Name of s3 Bucket containing the zipped code.
+
+  S3Key:
+    Type: String
+    Description: Path to the zip file inside the bucket.
+
+  IAMRole:
+    Type: String
+    Description: IAM Role for Lmabda Function..
+
+  CronExp:
+    Description: The time and sequence at which the Lambda function should run.(UTC)
+    Type: String
+    Default: ""
+
+  LambdaHandler:
+    Description: Name of Lambda Handler
+    Type: String
+
+  LambdaTrigger:
+    Description: Type of Lambda Trigger.
+    Type: String
+
+  # For Filter Logs
+  LogDuration:
+    Type: Number
+    Description: Number of minutes of logs to search.
+    Default: 3
+
+  SearchJson:
+    Type: String
+    Description: Json containing log groups and the terms to filter inside log groups.
+    Default: ""
+
+  ReceipientAddresses:
+    Type: String
+    Description: List of email which will receive the report. Comma Delimited.
+    Default: ""
+
+  Sender:
+    Type: String
+    Description: Email sender address.
+    Default: ""
+
+  MailSubject:
+    Description: Title for the email to be sent.
+    Type: String
+    Default: ""
+
+  # For DynamoDB backup
+  MaxBackups:
+    Description: Maximum number of DynamoDB backups to keep.
+    Type: Number
+    Default: 5
+
+  TableNames:
+    Description: Name of DynamoDB Table to backup.
+    Type: String
+    Default: ""
+
+  # For failed task
+  ClusterArn:
+    Description: ARN of ECS cluster.
+    Type: CommaDelimitedList
+    Default: ""
+  
+  ClusterInfo:
+    Description: Information about the clusters and the services they contain.
+    Type: String
+    Default: ""
+
+  # For key rotation
+  WarningPeriod:
+    Type: Number
+    Description: Warning period tp start warning about the deleting keys.
+    Default: 5
+
+  ExpirationDays:
+    Type: Number
+    Description: Days after which Access Key has to be deleted.
+    Default: "90"
+
+  ExcludeList:  
+    Type: String
+    Description: Exclude users for policy implementation. Comma Delimited.
+    Default: ""
+
+  Deletion:  
+    Type: String
+    Description: Whether to delete the Access Keys.
+    AllowedValues: ["True","False"]
+    Default: "False"
+
+  ReceipientEmailsKeyRotation:  
+    Type: String
+    Description: List of email which will receive the report. Comma Delimited.
+    Default: ""
+
+  SenderEmailKeyRotation:  
+    Type: String
+    Description: Email sender address.
+    Default: ""
+
+
+Conditions:
+  ECSLambdaTrigger: !Equals [ !Ref LambdaTrigger, "ECS" ]
+  CWEventLambdaTrigger: !Equals [ !Ref LambdaTrigger, "CWEvent" ]
+
+Outputs:
+  LambdaName:
+    Value:
+      Ref: LambdaFunction
+
+  LambdaFunctionARN:
+    Description: Lambda function ARN.
+    Value:
+      Fn::GetAtt:
+        - LambdaFunction
+        - Arn
+    Export:
+      Name:
+        Fn::Sub: LambdaARN-${AWS::StackName}
+
+Resources:
+  LambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName:
+        Fn::Sub: ${AWS::StackName}
+      Description: Lambda Function implementing Access Key Rotation after n number of days
+      Runtime: python3.7
+      Code:
+        S3Bucket: !Ref S3Bucket
+        S3Key: !Ref S3Key
+      Handler: !Ref LambdaHandler
+      MemorySize: 128
+      Timeout: 60
+      Role: !Ref IAMRole
+      Environment:
+        Variables:
+          EnvName:
+            Fn::Sub: ${EnvName}
+          LogDuration:
+            Fn::Sub: ${LogDuration}
+          SearchJson: 
+            Fn::Sub: ${SearchJson}
+          ReceipientAddresses:
+            Fn::Sub: ${ReceipientAddresses}
+          Sender:
+            Fn::Sub: ${Sender}
+          MailSubject:
+            Fn::Sub: ${MailSubject}
+          MAX_BACKUPS:
+            Fn::Sub: ${MaxBackups}
+          TableNames:
+            Fn::Sub: ${TableNames}
+          Info:
+            Fn::Sub: ${ClusterInfo}
+          exclude_list:
+            Fn::Sub: ${ExcludeList}
+          deletion:
+            Fn::Sub: ${Deletion}
+          expiration:
+            Fn::Sub: ${ExpirationDays}
+          warning_period:
+            Fn::Sub: ${WarningPeriod}
+          receipient_addresses:
+            Fn::Sub: ${ReceipientEmailsKeyRotation}
+          sender:
+            Fn::Sub: ${SenderEmailKeyRotation}
+  
+  ScheduledRule:
+    Type: AWS::Events::Rule
+    Condition: CWEventLambdaTrigger
+    Properties: 
+      Name: 
+        Fn::Sub: ${AWS::StackName}
+      Description: Scheduled Rule.
+      ScheduleExpression: !Ref CronExp   
+      State: "ENABLED"
+      Targets: 
+        - 
+          Arn: 
+            Fn::GetAtt: 
+              - "LambdaFunction"
+              - "Arn"
+          Id: !Ref LambdaFunction
+
+  EventRuleECS: 
+    Type: AWS::Events::Rule
+    Condition: ECSLambdaTrigger
+    Properties: 
+      Name: 
+        Fn::Sub: ${AWS::StackName}-ECS
+      Description: Scheduled Rule on the basis of change in state of tasks in the given ECS Services.
+      EventPattern:
+        source: 
+          - "aws.ecs"
+        detail-type: 
+          - "ECS Task State Change"
+        detail:
+          clusterArn: !Ref ClusterArn
+      State: "ENABLED"
+      Targets: 
+        - 
+          Arn: 
+            Fn::GetAtt: 
+              - "LambdaFunction"
+              - "Arn"
+          Id: !Ref LambdaFunction
+
+  PermissionForEventsToInvokeLambda:
+    Type: AWS::Lambda::Permission
+    Properties: 
+      FunctionName: 
+        Ref: "LambdaFunction"
+      Action: "lambda:InvokeFunction"
+      Principal: "events.amazonaws.com"
+      SourceArn:
+        Fn::If: 
+          - CWEventLambdaTrigger
+          - Fn::GetAtt: 
+            - "ScheduledRule"
+            - "Arn"
+          - Fn::GetAtt: 
+            - "EventRuleECS"
+            - "Arn"
+          

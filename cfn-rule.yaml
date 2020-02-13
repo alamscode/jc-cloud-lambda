@@ -1,0 +1,52 @@
+Parameters:
+  EnvName:
+    Type: String
+    Description: Name of the environment.
+    Default: ""
+
+Resources:
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName:
+        Fn::Sub: ${EnvName}-lambda-rule
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+            - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+              - lambda.amazonaws.com
+        Version: 2012-10-17
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
+        - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+        - arn:aws:iam::aws:policy/AmazonECS_FullAccess
+        - arn:aws:iam::aws:policy/IAMFullAccess
+        - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
+      Path: /
+      Policies:
+      - PolicyName: sendEmails
+        PolicyDocument:
+          Statement:
+              Effect: Allow
+              Action:
+                  - "ses:SendEmail"
+                  - "ses:SendRawEmail"
+                  - "ses:ListVerifiedEmailAddresses"
+                  - "ses:VerifyEmailAddress"
+                  - "ses:SendRawEmail"
+                  - "ses:SendEmail"
+              Resource: "*"
+
+Outputs:
+  LambdaRoleARN:
+    Description: Role for Lambda execution.
+    Value:
+      Fn::GetAtt:
+        - LambdaRole
+        - Arn
+    Export:
+      Name:
+        Fn::Sub: LambdaRole-${AWS::StackName}
