@@ -81,9 +81,9 @@ Parameters:
     Default: ""
 
   NumberOfMinutes:
-    Type: String
+    Type: Number
     Description: Number of minutes
-    Default: "7"
+    Default: 7
 
   # For key rotation
   WarningPeriod:

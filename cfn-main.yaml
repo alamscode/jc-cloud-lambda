@@ -96,10 +96,10 @@ Parameters:
     Type: String
     Description: Path to the zip file inside the bucket.
 
-  NumberOfMinutes:
-    Type: String
+  NumberOfMinutes1:
+    Type: Number
     Description: Number of minutes
-    Default: "6"
+    Default: 6
 
   LambdaTriggerDescribeTasks:
     Description: Type of Lambda Trigger.
@@ -250,7 +250,7 @@ Resources:
         S3Key: !Ref S3KeyDescribeTasks
         LambdaHandler: !Ref LambdaHandlerDescribeTasks
         LambdaTrigger: !Ref LambdaTriggerDescribeTasks 
-        NumberOfMinutes: !Ref NumberOfMinutes
+        NumberOfMinutes: !Ref NumberOfMinutes1
         ClusterArn: !Ref ClusterArn
         ClusterInfo: !Ref ClusterInfo
         ReceipientAddresses: !Ref ReceipientAddressesDescribeTasks
