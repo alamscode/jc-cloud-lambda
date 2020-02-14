@@ -70,7 +70,7 @@ Parameters:
     Default: ""
 
   # For failed task
-  NumberOfMinutes1:
+  NumberOfMinutesTest:
     Type: Number
     Description: Number of minutes
     Default: 7
@@ -159,10 +159,6 @@ Resources:
             Fn::Sub: ${LogDuration}
           SearchJson: 
             Fn::Sub: ${SearchJson}
-          MailSubject:
-            Fn::Sub: ${MailSubject}
-          MAX_BACKUPS:
-            Fn::Sub: ${MaxBackups}
           TableNames:
             Fn::Sub: ${TableNames}
           Info:
@@ -175,8 +171,8 @@ Resources:
             Fn::Sub: ${ExpirationDays}
           warning_period:
             Fn::Sub: ${WarningPeriod}
-          NumberOfMinutes:
-            !Ref NumberOfMinutes1
+          NumberOfMinutesLambda:
+            Fn::Sub: ${NumberOfMinutesTest}
   
   ScheduledRule:
     Type: AWS::Events::Rule
