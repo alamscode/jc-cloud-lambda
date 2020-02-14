@@ -61,6 +61,7 @@ case $CIRCLE_BRANCH in
         export S3KeyDescribeTasks=${S3KeyDescribeTasksProd}
         export LambdaTriggerDescribeTasks=${LambdaTriggerDescribeTasksProd}
         export LambdaHandlerDescribeTasks=${LambdaHandlerDescribeTasksProd}
+        export NumberOfMinutes=${NumberOfMinutesProd}
         export ClusterInfo=${ClusterInfoProd}
         export ClusterArn=${ClusterArnProd}
         export SenderDescribeTasks=${SenderDescribeTasksProd}

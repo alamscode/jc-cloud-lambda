@@ -63,6 +63,7 @@ jobs:
       CronExpDynamoDBProd: "cron(0 5 * * ? *)"
       # Describe Tasks Parameters
       LambdaTriggerDescribeTasksProd: "ECS"
+      NumberOfMinutesProd: "7"
       ClusterInfoProd: "{'clusters':[{'cluster_name':'prod-operation-link-cluster','service_names':['prod-spa-event-processor','prod-cloud-synchronizer']}]}"
       ClusterArnProd: "arn:aws:ecs:us-east-1:947129514162:cluster/prod-operation-link-cluster"
       SenderDescribeTasksProd: "wajahat@jacuzzi.com"

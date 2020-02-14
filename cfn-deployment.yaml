@@ -183,7 +183,7 @@ Resources:
           sender:
             Fn::Sub: ${SenderEmailKeyRotation}
           NumberOfMinutes:
-            !Sub "6"
+            !Sub ${NumberOfMinutes}
   
   ScheduledRule:
     Type: AWS::Events::Rule

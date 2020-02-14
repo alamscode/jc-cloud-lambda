@@ -99,6 +99,7 @@ Parameters:
   NumberOfMinutes:
     Type: Number
     Description: Number of minutes
+    Default: "6"
 
   LambdaTriggerDescribeTasks:
     Description: Type of Lambda Trigger.
@@ -249,7 +250,7 @@ Resources:
         S3Key: !Ref S3KeyDescribeTasks
         LambdaHandler: !Ref LambdaHandlerDescribeTasks
         LambdaTrigger: !Ref LambdaTriggerDescribeTasks 
-        NumberOfMinutes: "7"
+        NumberOfMinutes: !Ref NumberOfMinutes
         ClusterArn: !Ref ClusterArn
         ClusterInfo: !Ref ClusterInfo
         ReceipientAddresses: !Ref ReceipientAddressesDescribeTasks
