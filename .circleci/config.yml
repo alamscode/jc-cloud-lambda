@@ -90,5 +90,5 @@ workflows:
         filters:
             branches:
                 only:
-                    - release/current
+                    - circleci-project-setup
                     - master

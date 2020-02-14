@@ -1,7 +1,7 @@
 echo "Exporting variables"
 # Provide exacct branch name
 case $CIRCLE_BRANCH in
-    "release/current")
+    "circleci-project-setup")
         export StackName=${StackNameStage}
         export EnvName=${EnvNameStage}
         export S3Bucket=${S3BucketStage}
