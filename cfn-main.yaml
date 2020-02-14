@@ -97,7 +97,7 @@ Parameters:
     Description: Path to the zip file inside the bucket.
 
   NumberOfMinutes:
-    Type: String
+    Type: Number
 
   LambdaTriggerDescribeTasks:
     Description: Type of Lambda Trigger.

@@ -114,7 +114,7 @@ Parameters:
   
   # For Describe_Tasks
   NumberOfMinutes:
-    Type: String
+    Type: Number
 
 
 Conditions:
