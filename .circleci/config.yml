@@ -11,7 +11,7 @@ jobs:
       # General Parameters
       EnvNameStage: "Staging"
       StackNameStage: "cfn-stage"
-      S3BucketStage: "jacuzzi-cfn-lambda"
+      S3BucketStage: "jacuzzi-cfn-lambda-test"
       # Filter Logs Parameters
       LambdaTriggerFilterLogsStage: "CWEvent" # CWEvent or ECS
       LogDurationFilterLogsStage: "3"
