@@ -70,7 +70,7 @@ Parameters:
     Default: ""
 
   # For failed task
-  NumberOfMinutesTest:
+  NumberOfMinutes:
     Type: Number
     Description: Number of minutes
     Default: 7
@@ -171,8 +171,8 @@ Resources:
             Fn::Sub: ${ExpirationDays}
           warning_period:
             Fn::Sub: ${WarningPeriod}
-          NumberOfMinutesLambda:
-            Fn::Sub: ${NumberOfMinutesTest}
+          NumberOfMinutes:
+            Fn::Sub: ${NumberOfMinutes}
   
   ScheduledRule:
     Type: AWS::Events::Rule
