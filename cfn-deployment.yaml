@@ -80,7 +80,7 @@ Parameters:
     Type: String
     Default: ""
 
-  NumberOfMinutes:
+  NumberOfMinutes1:
     Type: Number
     Description: Number of minutes
     Default: 7
@@ -184,7 +184,7 @@ Resources:
           sender:
             Fn::Sub: ${SenderEmailKeyRotation}
           NumberOfMinutes:
-            !Sub ${NumberOfMinutes}
+            !Sub ${NumberOfMinutes1}
   
   ScheduledRule:
     Type: AWS::Events::Rule
