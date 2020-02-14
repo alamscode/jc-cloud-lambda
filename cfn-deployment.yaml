@@ -70,6 +70,11 @@ Parameters:
     Default: ""
 
   # For failed task
+  NumberOfMinutes1:
+    Type: Number
+    Description: Number of minutes
+    Default: 7
+
   ClusterArn:
     Description: ARN of ECS cluster.
     Type: CommaDelimitedList
@@ -79,11 +84,6 @@ Parameters:
     Description: Information about the clusters and the services they contain.
     Type: String
     Default: ""
-
-  NumberOfMinutes1:
-    Type: Number
-    Description: Number of minutes
-    Default: 7
 
   # For key rotation
   WarningPeriod:
