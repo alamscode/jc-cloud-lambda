@@ -10,8 +10,9 @@ ecs_client = boto3.client('ecs')
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
+number_of_minutes = os.environ['NumberOfMinutes']
 now = datetime.datetime.now()
-now_minus_three = now - datetime.timedelta(minutes = 3)
+now_minus_three = now - datetime.timedelta(minutes = number_of_minutes)
 
 def describe_services(cluster_name, services):
     response = ecs_client.describe_services(

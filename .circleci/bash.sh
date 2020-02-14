@@ -22,6 +22,7 @@ case $CIRCLE_BRANCH in
         export CronExpDynamoDB=${CronExpDynamoDBStage}
         export S3KeyDescribeTasks=${S3KeyDescribeTasksStage}
         export LambdaTriggerDescribeTasks=${LambdaTriggerDescribeTasksStage}
+        export NumberOfMinutes=${NumberOfMinutesStage}
         export LambdaHandlerDescribeTasks=${LambdaHandlerDescribeTasksStage}
         export ClusterInfo=${ClusterInfoStage}
         export ClusterArn=${ClusterArnStage}
@@ -128,6 +129,7 @@ TableNamesDynamoDB="$TableNamesDynamoDB" \
 CronExpDynamoDB="$CronExpDynamoDB" \
 S3KeyDescribeTasks="describe_tasks-${CIRCLE_BUILD_NUM}.py.zip" \
 LambdaTriggerDescribeTasks="$LambdaTriggerDescribeTasks" \
+NumberOfMinutes="$NumberOfMinutes"
 LambdaHandlerDescribeTasks="describe_tasks-$CIRCLE_BUILD_NUM.lambda_handler" \
 ClusterInfo="$ClusterInfo" \
 ClusterArn="$ClusterArn" \
