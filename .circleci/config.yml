@@ -16,8 +16,8 @@ jobs:
       LambdaTriggerFilterLogsStage: "CWEvent" # CWEvent or ECS
       LogDurationFilterLogsStage: "3"
       SearchJsonFilterLogsStage: "{'groups':[{'groupname':'staging-jacuzzi-cloud-api','keywords':['CreateSpaException']}]}"
-      ReceipientAddressesFilterLogsStage: "larry.ovalle@jacuzzi.com,ank.nath@jacuzzi.com,wajahat@nclouds.com"
-      SenderFilterLogsStage: "larry.ovalle@jacuzzi.com"
+      ReceipientAddressesFilterLogsStage: "wajahat@nclouds.com"
+      SenderFilterLogsStage: "wajahat@jacuzzi.com"
       CronExpFilterLogsStage: "cron(*/2 * * * ? *)"
       MailSubjectFilterLogsStage: "Exception while creating SPA"
       # DynamoDB Backup Parameters
@@ -29,8 +29,8 @@ jobs:
       LambdaTriggerDescribeTasksStage: "ECS"
       ClusterInfoStage: "{'clusters':[{'cluster_name':'staging-operation-link-cluster','service_names':['staging-cloud-synchronizer','staging-spa-event-processor']}]}"
       ClusterArnStage: "arn:aws:ecs:us-east-1:947129514162:cluster/staging-operation-link-cluster"
-      SenderDescribeTasksStage: "larry.ovalle@jacuzzi.com"
-      ReceipientAddressesDescribeTasksStage: "larry.ovalle@jacuzzi.com,ank.nath@jacuzzi.com,wajahat@nclouds.com"
+      SenderDescribeTasksStage: "wajahat@jacuzzi.com"
+      ReceipientAddressesDescribeTasksStage: "wajahat@nclouds.com"
       MailSubjectDescribeTasksStage: "Tasks stopped in quick succession"
       # Key Rotation Params
       LambdaTriggerKeyRotation: "CWEvent"
@@ -38,8 +38,8 @@ jobs:
       ExpirationDaysStage: "90"
       ExcludeListStage: "circleci,circleci-lambda"
       DeletionStage: "False" # Delete AWS ACCESS KEYS?
-      ReceipientEmailsKeyRotationStage: ""larry.ovalle@jacuzzi.com,ank.nath@jacuzzi.com,wajahat@nclouds.com""
-      SenderEmailKeyRotationStage: "larry.ovalle@jacuzzi.com"
+      ReceipientEmailsKeyRotationStage: "wajahat@nclouds.com"
+      SenderEmailKeyRotationStage: "wajahat@jacuzzi.com"
       CronExpKeyRotationStage: "cron(0 5 * * ? *)"
       
       ## PROD
@@ -51,8 +51,8 @@ jobs:
       LambdaTriggerFilterLogsProd: "CWEvent"
       LogDurationFilterLogsProd: "3"
       SearchJsonFilterLogsProd: "{'groups':[{'groupname':'prod-jacuzzi-cloud-api','keywords':['CreateSpaException']}]}"
-      ReceipientAddressesFilterLogsProd: "larry.ovalle@jacuzzi.com,ank.nath@jacuzzi.com,wajahat@nclouds.com"
-      SenderFilterLogsProd: "larry.ovalle@jacuzzi.com"
+      ReceipientAddressesFilterLogsProd: "wajahat@nclouds.com"
+      SenderFilterLogsProd: "wajahat@jacuzzi.com"
       CronExpFilterLogsProd: "cron(*/2 * * * ? *)"
       MailSubjectFilterLogsProd: "Exception while creating SPA"
       # DynamoDB Backup Parameters
@@ -64,16 +64,16 @@ jobs:
       LambdaTriggerDescribeTasksProd: "ECS"
       ClusterInfoProd: "{'clusters':[{'cluster_name':'prod-operation-link-cluster','service_names':['prod-spa-event-processor','prod-cloud-synchronizer']}]}"
       ClusterArnProd: "arn:aws:ecs:us-east-1:947129514162:cluster/prod-operation-link-cluster"
-      SenderDescribeTasksProd: "larry.ovalle@jacuzzi.com"
-      ReceipientAddressesDescribeTasksProd: "larry.ovalle@jacuzzi.com,ank.nath@jacuzzi.com,wajahat@nclouds.com"
+      SenderDescribeTasksProd: "wajahat@jacuzzi.com"
+      ReceipientAddressesDescribeTasksProd: "wajahat@nclouds.com"
       MailSubjectDescribeTasksProd: "Tasks stopped in quick succession"
       # Key Rotation Params
       WarningPeriodProd: "5"
       ExpirationDaysProd: "90"
       ExcludeListProd: "circleci,circleci-lambda"
       DeletionProd: "False" # Delete AWS ACCESS KEYS?
-      ReceipientEmailsKeyRotationProd: "larry.ovalle@jacuzzi.com,ank.nath@jacuzzi.com,wajahat@nclouds.com"
-      SenderEmailKeyRotationProd: "larry.ovalle@jacuzzi.com"
+      ReceipientEmailsKeyRotationProd: "wajahat@nclouds.com"
+      SenderEmailKeyRotationProd: "wajahat@jacuzzi.com"
       CronExpKeyRotationProd: "cron(0 5 * * ? *)"
 
     steps:
