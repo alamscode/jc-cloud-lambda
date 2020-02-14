@@ -190,7 +190,7 @@ Resources:
   LambdaRule:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: "https://jacuzzi-cfn.s3.amazonaws.com/cfn-rule.yaml"
+      TemplateURL: "https://jacuzzi-cfn-lambda-test.s3.amazonaws.com/cfn-rule.yaml"
       Parameters:
         EnvName: !Ref EnvName
       Tags:
@@ -201,7 +201,7 @@ Resources:
   LambdaFilterLogs:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: "https://jacuzzi-cfn.s3.amazonaws.com/cfn-deployment.yaml"
+      TemplateURL: "https://jacuzzi-cfn-lambda-test.s3.amazonaws.com/cfn-deployment.yaml"
       Parameters:
         EnvName: !Ref EnvName
         S3Bucket: !Ref S3Bucket
@@ -223,7 +223,7 @@ Resources:
   LambdaDynamoDBBackup:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: "https://jacuzzi-cfn.s3.amazonaws.com/cfn-deployment.yaml"
+      TemplateURL: "https://jacuzzi-cfn-lambda-test.s3.amazonaws.com/cfn-deployment.yaml"
       Parameters:
         EnvName: !Ref EnvName
         S3Bucket: !Ref S3Bucket
@@ -242,7 +242,7 @@ Resources:
   LambdaDescribeTasks:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: "https://jacuzzi-cfn.s3.amazonaws.com/cfn-deployment.yaml"
+      TemplateURL: "https://jacuzzi-cfn-lambda-test.s3.amazonaws.com/cfn-deployment.yaml"
       Parameters:
         EnvName: !Ref EnvName
         S3Bucket: !Ref S3Bucket
@@ -264,7 +264,7 @@ Resources:
   LambdaKeyRotation:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: "https://jacuzzi-cfn.s3.amazonaws.com/cfn-deployment.yaml"
+      TemplateURL: "https://jacuzzi-cfn-lambda-test.s3.amazonaws.com/cfn-deployment.yaml"
       Parameters:
         EnvName: !Ref EnvName
         S3Bucket: !Ref S3Bucket
