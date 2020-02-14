@@ -249,7 +249,7 @@ Resources:
         S3Key: !Ref S3KeyDescribeTasks
         LambdaHandler: !Ref LambdaHandlerDescribeTasks
         LambdaTrigger: !Ref LambdaTriggerDescribeTasks 
-        NumberOfMinutes: !Ref NumberOfMinutes
+        NumberOfMinutes: "6"
         ClusterArn: !Ref ClusterArn
         ClusterInfo: !Ref ClusterInfo
         ReceipientAddresses: !Ref ReceipientAddressesDescribeTasks
