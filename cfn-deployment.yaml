@@ -111,6 +111,10 @@ Parameters:
     Type: String
     Description: Email sender address.
     Default: ""
+  
+  # For Describe_Tasks
+  NumberOfMinutes:
+    Type: String
 
 
 Conditions:
