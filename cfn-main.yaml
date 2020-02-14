@@ -98,6 +98,7 @@ Parameters:
 
   NumberOfMinutes:
     Type: Number
+    Description: Number of minutes
 
   LambdaTriggerDescribeTasks:
     Description: Type of Lambda Trigger.

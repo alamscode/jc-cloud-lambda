@@ -80,6 +80,10 @@ Parameters:
     Type: String
     Default: ""
 
+  NumberOfMinutes:
+    Type: Number
+    Description: Number of minutes
+
   # For key rotation
   WarningPeriod:
     Type: Number
@@ -111,11 +115,6 @@ Parameters:
     Type: String
     Description: Email sender address.
     Default: ""
-  
-  # For Describe_Tasks
-  NumberOfMinutes:
-    Type: Number
-
 
 Conditions:
   ECSLambdaTrigger: !Equals [ !Ref LambdaTrigger, "ECS" ]
