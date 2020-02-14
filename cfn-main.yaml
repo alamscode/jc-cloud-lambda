@@ -97,7 +97,7 @@ Parameters:
     Description: Path to the zip file inside the bucket.
 
   NumberOfMinutes:
-    Type: Number
+    Type: String
     Description: Number of minutes
     Default: "6"
 

@@ -81,7 +81,7 @@ Parameters:
     Default: ""
 
   NumberOfMinutes:
-    Type: Number
+    Type: String
     Description: Number of minutes
     Default: "7"
 
