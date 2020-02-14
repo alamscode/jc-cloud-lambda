@@ -159,10 +159,6 @@ Resources:
             Fn::Sub: ${LogDuration}
           SearchJson: 
             Fn::Sub: ${SearchJson}
-          ReceipientAddresses:
-            Fn::Sub: ${ReceipientAddresses}
-          Sender:
-            Fn::Sub: ${Sender}
           MailSubject:
             Fn::Sub: ${MailSubject}
           MAX_BACKUPS:
@@ -179,10 +175,6 @@ Resources:
             Fn::Sub: ${ExpirationDays}
           warning_period:
             Fn::Sub: ${WarningPeriod}
-          receipient_addresses:
-            Fn::Sub: ${ReceipientEmailsKeyRotation}
-          sender:
-            Fn::Sub: ${SenderEmailKeyRotation}
           NumberOfMinutes:
             !Ref NumberOfMinutes1
   
