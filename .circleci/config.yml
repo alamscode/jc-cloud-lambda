@@ -27,7 +27,7 @@ jobs:
       CronExpDynamoDBStage: "cron(0 5 * * ? *)"
       # Describe Tasks Parameters
       LambdaTriggerDescribeTasksStage: "ECS"
-      NumberOfMinutesStage: "6"
+      NumberOfMinutesStage: "7"
       ClusterInfoStage: "{'clusters':[{'cluster_name':'staging-operation-link-cluster','service_names':['staging-cloud-synchronizer','staging-spa-event-processor']}]}"
       ClusterArnStage: "arn:aws:ecs:us-east-1:947129514162:cluster/staging-operation-link-cluster"
       SenderDescribeTasksStage: "wajahat@jacuzzi.com"
