@@ -261,6 +261,30 @@ Resources:
           Value: 
             Fn::Sub: ${AWS::StackName}-describe-tasks
 
+  LambdaInactiveKeyRotation:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: "https://jacuzzi-cfn-lambda-test.s3.amazonaws.com/cfn-deployment.yaml"
+      Parameters:
+        EnvName: !Ref EnvName
+        S3Bucket: !Ref S3Bucket
+        S3Key: !Ref S3KeyKeyRotation
+        IAMRole: !GetAtt LambdaRule.Outputs.LambdaRoleARN
+        LambdaHandler: !Ref LambdaHandlerKeyRotation
+        LambdaTrigger: !Ref LambdaTriggerKeyRotation
+        WarningPeriod: !Ref WarningPeriod
+        ExpirationDays: !Ref ExpirationDays
+        ExcludeList: !Ref ExcludeList
+        Deletion: !Ref Deletion
+        ReceipientEmailsKeyRotation: !Ref ReceipientEmailsKeyRotation
+        SenderEmailKeyRotation: !Ref SenderEmailKeyRotation
+        CronExp: !Ref CronExpKeyRotation
+
+      Tags:
+        - Key: Name
+          Value: 
+            Fn::Sub: ${AWS::StackName}-inactive-key-rotation           
+
   LambdaKeyRotation:
     Type: AWS::CloudFormation::Stack
     Properties:

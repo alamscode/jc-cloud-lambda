@@ -93,9 +93,13 @@ echo "Zipping code for ecs describe tasks"
 mv ./lambda-functions/describe_tasks.py ./describe_tasks-$CIRCLE_BUILD_NUM.py
 zip describe_tasks-$CIRCLE_BUILD_NUM.py.zip describe_tasks-$CIRCLE_BUILD_NUM.py
 
-echo "Zipping code for ecs key rotation"
+echo "Zipping code for key rotation"
 mv ./lambda-functions/key_rotation_lambda.py ./key_rotation_lambda-$CIRCLE_BUILD_NUM.py
 zip key_rotation_lambda-$CIRCLE_BUILD_NUM.py.zip key_rotation_lambda-$CIRCLE_BUILD_NUM.py
+
+echo "Zipping code for inactive key rotation"
+mv ./lambda-functions/inactive_key_rotation_lambda.py ./inactive_key_rotation_lambda-$CIRCLE_BUILD_NUM.py
+zip inactive_key_rotation_lambda-$CIRCLE_BUILD_NUM.py.zip inactive_key_rotation_lambda-$CIRCLE_BUILD_NUM.py
 
 echo "Deploying to S3"
 aws s3 cp "cfn-deployment.yaml" s3://$S3Bucket
@@ -104,6 +108,7 @@ aws s3 cp "filter_logs-$CIRCLE_BUILD_NUM.py.zip" s3://$S3Bucket
 aws s3 cp "dynamodb_backups-$CIRCLE_BUILD_NUM.py.zip" s3://$S3Bucket
 aws s3 cp "describe_tasks-$CIRCLE_BUILD_NUM.py.zip" s3://$S3Bucket
 aws s3 cp "key_rotation_lambda-$CIRCLE_BUILD_NUM.py.zip" s3://$S3Bucket
+aws s3 cp "inactive_key_rotation_lambda-$CIRCLE_BUILD_NUM.py.zip" s3://$S3Bucket
 
 echo $LogDurationFilterLogs
 
