@@ -42,6 +42,15 @@ jobs:
       ReceipientEmailsKeyRotationStage: "wajahat@nclouds.com"
       SenderEmailKeyRotationStage: "wajahat@jacuzzi.com"
       CronExpKeyRotationStage: "cron(0 5 * * ? *)"
+      # Inactive Key Rotation Params
+      LambdaTriggerKeyRotationInactive: "CWEvent"
+      WarningPeriodInactiveStage: "2"
+      ExpirationDaysInactiveStage: "7"
+      ExcludeListInactiveStage: "circleci,circleci-lambda"
+      DeletionInactiveStage: "False" # Delete AWS ACCESS KEYS?
+      ReceipientEmailsKeyRotationInactiveStage: "wajahat@nclouds.com"
+      SenderEmailKeyRotationInactiveStage: "wajahat@jacuzzi.com"
+      CronExpKeyRotationInactiveStage: "cron(0 5 * * ? *)"
       
       ## PROD
       # General Parameters
@@ -77,6 +86,14 @@ jobs:
       ReceipientEmailsKeyRotationProd: "wajahat@nclouds.com"
       SenderEmailKeyRotationProd: "wajahat@jacuzzi.com"
       CronExpKeyRotationProd: "cron(0 5 * * ? *)"
+      # Inactive Key Rotation Params
+      WarningPeriodInactiveProd: "2"
+      ExpirationDaysInactiveProd: "7"
+      ExcludeListInactiveProd: "circleci,circleci-lambda"
+      DeletionInactiveProd: "False" # Delete AWS ACCESS KEYS?
+      ReceipientEmailsKeyRotationInactiveProd: "wajahat@nclouds.com"
+      SenderEmailKeyRotationInactiveProd: "wajahat@jacuzzi.com"
+      CronExpKeyRotationInactiveProd: "cron(0 5 * * ? *)"
 
     steps:
       - checkout

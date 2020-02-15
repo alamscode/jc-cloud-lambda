@@ -70,11 +70,11 @@ Parameters:
     Default: ""
 
   # For failed task
-  NumberOfMinutes:
+    NumberOfMinutes:
     Type: Number
     Description: Number of minutes
     Default: 7
-
+    
   ClusterArn:
     Description: ARN of ECS cluster.
     Type: CommaDelimitedList
@@ -159,6 +159,14 @@ Resources:
             Fn::Sub: ${LogDuration}
           SearchJson: 
             Fn::Sub: ${SearchJson}
+          ReceipientAddresses:
+            Fn::Sub: ${ReceipientAddresses}
+          Sender:
+            Fn::Sub: ${Sender}
+          MailSubject:
+            Fn::Sub: ${MailSubject}
+          MAX_BACKUPS:
+            Fn::Sub: ${MaxBackups}
           TableNames:
             Fn::Sub: ${TableNames}
           Info:
@@ -171,8 +179,12 @@ Resources:
             Fn::Sub: ${ExpirationDays}
           warning_period:
             Fn::Sub: ${WarningPeriod}
+          receipient_addresses:
+            Fn::Sub: ${ReceipientEmailsKeyRotation}
+          sender:
+            Fn::Sub: ${SenderEmailKeyRotation}
           NumberOfMinutes:
-            Fn::Sub: ${NumberOfMinutes}
+            !Sub ${NumberOfMinutes}
   
   ScheduledRule:
     Type: AWS::Events::Rule

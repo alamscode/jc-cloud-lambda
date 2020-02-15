@@ -37,6 +37,13 @@ case $CIRCLE_BRANCH in
         export ReceipientEmailsKeyRotation=${ReceipientEmailsKeyRotationStage}
         export SenderEmailKeyRotation=${SenderEmailKeyRotationStage}
         export CronExpKeyRotation=${CronExpKeyRotationStage}
+        export WarningPeriodInactive=$WarningPeriodInactiveStage
+        export ExpirationDaysInactive=$ExpirationDaysInactiveStage
+        export ExcludeListInactive=$ExcludeListInactiveStage
+        export DeletionInactive=$DeletionInactiveStage
+        export ReceipientEmailsKeyRotationInactive=$ReceipientEmailsKeyRotationInactiveStage
+        export SenderEmailKeyRotationInactive=$SenderEmailKeyRotationInactiveStage
+        export CronExpKeyRotationInactive=$CronExpKeyRotationInactiveStage
         ;;
         
     "master")
@@ -75,6 +82,13 @@ case $CIRCLE_BRANCH in
         export ReceipientEmailsKeyRotation=${ReceipientEmailsKeyRotationProd}
         export SenderEmailKeyRotation=${ReceipientEmailsKeyRotationProd}
         export CronExpKeyRotation=${ReceipientEmailsKeyRotationProd}
+        export WarningPeriodInactive=$WarningPeriodInactiveProd
+        export ExpirationDaysInactive=$ExpirationDaysInactiveProd
+        export ExcludeListInactive=$ExcludeListInactiveProd
+        export DeletionInactive=$DeletionInactiveProd
+        export ReceipientEmailsKeyRotationInactive=$ReceipientEmailsKeyRotationInactiveProd
+        export SenderEmailKeyRotationInactive=$SenderEmailKeyRotationInactiveProd
+        export CronExpKeyRotationInactive=$CronExpKeyRotationInactiveProd
         ;;
 esac
 

@@ -186,6 +186,41 @@ Parameters:
     Type: String
     Default: ""
 
+  WarningPeriodInactive:
+    Type: Number
+    Description: Warning period tp start warning about the deleting keys.
+    Default: 5
+
+  ExpirationDaysInactive:
+    Type: Number
+    Description: Days after which Access Key has to be deleted.
+    Default: "90"
+
+  ExcludeListInactive:  
+    Type: String
+    Description: Exclude users for policy implementation. Comma Delimited.
+
+  DeletionInactive:  
+    Type: String
+    Description: Whether to delete the Access Keys.
+    AllowedValues: ["True","False"]
+    Default: "True"
+
+  ReceipientEmailsKeyRotationInactive:  
+    Type: String
+    Description: List of email which will receive the report. Comma Delimited.
+    Default: ""
+
+  SenderEmailKeyRotationInactive:  
+    Type: String
+    Description: Email sender address.
+    Default: ""
+
+  CronExpKeyRotationInactive:
+    Description: The time and sequence at which the Lambda function should run.(UTC)
+    Type: String
+    Default: ""
+
 Resources:
   LambdaRule:
     Type: AWS::CloudFormation::Stack
@@ -272,13 +307,13 @@ Resources:
         IAMRole: !GetAtt LambdaRule.Outputs.LambdaRoleARN
         LambdaHandler: !Ref LambdaHandlerKeyRotation
         LambdaTrigger: !Ref LambdaTriggerKeyRotation
-        WarningPeriod: !Ref WarningPeriod
-        ExpirationDays: !Ref ExpirationDays
-        ExcludeList: !Ref ExcludeList
-        Deletion: !Ref Deletion
-        ReceipientEmailsKeyRotation: !Ref ReceipientEmailsKeyRotation
-        SenderEmailKeyRotation: !Ref SenderEmailKeyRotation
-        CronExp: !Ref CronExpKeyRotation
+        WarningPeriod: !Ref WarningPeriodInactive
+        ExpirationDays: !Ref ExpirationDaysInactive
+        ExcludeList: !Ref ExcludeListInactive
+        Deletion: !Ref DeletionInactive
+        ReceipientEmailsKeyRotation: !Ref ReceipientEmailsKeyRotationInactive
+        SenderEmailKeyRotation: !Ref SenderEmailKeyRotationInactive
+        CronExp: !Ref CronExpKeyRotationInactive
 
       Tags:
         - Key: Name
