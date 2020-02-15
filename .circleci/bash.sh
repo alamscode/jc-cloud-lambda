@@ -166,4 +166,11 @@ Deletion="$Deletion" \
 ReceipientEmailsKeyRotation="$ReceipientEmailsKeyRotation" \
 SenderEmailKeyRotation="$SenderEmailKeyRotation" \
 CronExpKeyRotation="$CronExpKeyRotation" \
+WarningPeriodInactive="$WarningPeriodInactive" \
+ExpirationDaysInactive="$ExpirationDaysInactive" \
+ExcludeListInactive="$ExcludeListInactive" \
+DeletionInactive="$DeletionInactive" \
+ReceipientEmailsKeyRotationInactive="$ReceipientEmailsKeyRotationInactive" \
+SenderEmailKeyRotationInactive="$SenderEmailKeyRotationInactive" \
+CronExpKeyRotationInactive="$CronExpKeyRotationInactive" \
 --capabilities CAPABILITY_NAMED_IAM
