@@ -70,7 +70,7 @@ Parameters:
     Default: ""
 
   # For failed task
-    NumberOfMinutes:
+  NumberOfMinutes:
     Type: Number
     Description: Number of minutes
     Default: 7
