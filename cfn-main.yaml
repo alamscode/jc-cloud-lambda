@@ -188,13 +188,13 @@ Parameters:
 
   WarningPeriodInactive:
     Type: Number
-    Description: Warning period tp start warning about the deleting keys.
-    Default: 5
+    Description: Warning period to start warning about the deleting keys.
+    Default: 2
 
   ExpirationDaysInactive:
     Type: Number
     Description: Days after which Access Key has to be deleted.
-    Default: "90"
+    Default: "7"
 
   ExcludeListInactive:  
     Type: String
