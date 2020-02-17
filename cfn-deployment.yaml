@@ -59,6 +59,11 @@ Parameters:
     Default: ""
 
   # For DynamoDB backup
+  DynamdbBackupRequired:
+    Type: String
+    Description: Is Dynamodb backup required or not?
+    Default: True
+
   MaxBackups:
     Description: Maximum number of DynamoDB backups to keep.
     Type: Number
@@ -165,6 +170,8 @@ Resources:
             Fn::Sub: ${Sender}
           MailSubject:
             Fn::Sub: ${MailSubject}
+          DynamdbBackupRequired:
+            Fn::Sub: ${DynamdbBackupRequired}
           MAX_BACKUPS:
             Fn::Sub: ${MaxBackups}
           TableNames:

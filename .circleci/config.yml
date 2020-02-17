@@ -21,6 +21,7 @@ jobs:
       CronExpFilterLogsStage: "cron(*/2 * * * ? *)"
       MailSubjectFilterLogsStage: "Exception while creating SPA"
       # DynamoDB Backup Parameters
+      DynamdbBackupRequiredStage: "True"
       LambdaTriggerDynamoDBStage: "CWEvent"
       MaxBackupsDynamoDBStage: "5"
       TableNamesDynamoDBStage: "staging-synchronizer-checkpoint,staging-spa-event-processor-snapshot,staging-spa-event-processor-journal,staging-spa-event-processor-checkpoint"
@@ -66,6 +67,7 @@ jobs:
       CronExpFilterLogsProd: "cron(*/2 * * * ? *)"
       MailSubjectFilterLogsProd: "Exception while creating SPA"
       # DynamoDB Backup Parameters
+      DynamdbBackupRequiredProd: "True"
       LambdaTriggerDynamoDBProd: "CWEvent"
       MaxBackupsDynamoDBProd: "5"
       TableNamesDynamoDBProd: "prod-synchronizer-checkpoint,prod-spa-event-processor-snapshot,prod-spa-event-processor-journal,prod-spa-event-processor-checkpoint"

@@ -60,6 +60,11 @@ Parameters:
     Default: ""
 
   # Parameters for Filter Logs Lambda function.
+  DynamdbBackupRequired:
+    Type: String
+    Description: Is Dynamodb backup required or not?
+    Default: True
+
   S3KeyDynamoDB:
     Type: String
     Description: Path to the zip file inside the bucket.
@@ -282,6 +287,7 @@ Resources:
         S3Bucket: !Ref S3Bucket
         S3Key: !Ref S3KeyDynamoDB
         IAMRole: !GetAtt LambdaRule.Outputs.LambdaRoleARN
+        DynamdbBackupRequired: !Ref DynamdbBackupRequired
         LambdaHandler: !Ref LambdaHandlerDynamoDB
         LambdaTrigger: !Ref LambdaTriggerDynamoDB
         MaxBackups: !Ref MaxBackupsDynamoDB

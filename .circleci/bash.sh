@@ -15,6 +15,7 @@ case $CIRCLE_BRANCH in
         export CronExpFilterLogs=${CronExpFilterLogsStage}
         export MailSubjectFilterLogs=${MailSubjectFilterLogsStage}
         export S3KeyDynamoDB=${S3KeyDynamoDBStage}
+        export DynamdbBackupRequired=${DynamdbBackupRequiredStage}
         export LambdaTriggerDynamoDB=${LambdaTriggerDynamoDBStage}
         export LambdaHandlerDynamoDB=${LambdaHandlerDynamoDBStage}
         export MaxBackupsDynamoDB=${MaxBackupsDynamoDBStage}
@@ -60,6 +61,7 @@ case $CIRCLE_BRANCH in
         export CronExpFilterLogs=${CronExpFilterLogsProd}
         export MailSubjectFilterLogs=${MailSubjectFilterLogsProd}
         export S3KeyDynamoDB=${S3KeyDynamoDBProd}
+        export DynamdbBackupRequired=${DynamdbBackupRequiredProd}
         export LambdaTriggerDynamoDB=${LambdaTriggerDynamoDBProd}
         export LambdaHandlerDynamoDB=${LambdaHandlerDynamoDBProd}
         export MaxBackupsDynamoDB=${MaxBackupsDynamoDBProd}
@@ -142,6 +144,7 @@ SenderFilterLogs="$SenderFilterLogs" \
 CronExpFilterLogs="$CronExpFilterLogs" \
 MailSubjectFilterLogs="$MailSubjectFilterLogs" \
 S3KeyDynamoDB="dynamodb_backups-${CIRCLE_BUILD_NUM}.py.zip" \
+DynamdbBackupRequired="$DynamdbBackupRequired"
 LambdaTriggerDynamoDB="$LambdaTriggerDynamoDB" \
 LambdaHandlerDynamoDB="dynamodb_backups-$CIRCLE_BUILD_NUM.lambda_handler" \
 MaxBackupsDynamoDB="$MaxBackupsDynamoDB" \
