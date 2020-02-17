@@ -240,9 +240,11 @@ Resources:
   LambdaRule:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub 
-        - https://${S3Bucket}.s3.amazonaws.com/cfn-rule.yaml
-        - {S3Bucket: !Ref S3Bucket}
+      TemplateURL: !Join 
+        - '' 
+        - - 'https://'
+          - !Ref S3Bucket
+          - '.s3.amazonaws.com/cfn-rule.yaml'
       Parameters:
         EnvName: !Ref EnvName
       Tags:
@@ -253,9 +255,11 @@ Resources:
   LambdaFilterLogs:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub 
-        - https://${S3Bucket}.s3.amazonaws.com/cfn-rule.yaml
-        - {S3Bucket: !Ref S3Bucket}
+      TemplateURL: !Join 
+        - '' 
+        - - 'https://'
+          - !Ref S3Bucket
+          - '.s3.amazonaws.com/cfn-rule.yaml'
       Parameters:
         EnvName: !Ref EnvName
         S3Bucket: !Ref S3Bucket
@@ -277,9 +281,11 @@ Resources:
   LambdaDynamoDBBackup:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub 
-        - https://${S3Bucket}.s3.amazonaws.com/cfn-rule.yaml
-        - {S3Bucket: !Ref S3Bucket}
+      TemplateURL: !Join 
+        - '' 
+        - - 'https://'
+          - !Ref S3Bucket
+          - '.s3.amazonaws.com/cfn-rule.yaml'
       Parameters:
         EnvName: !Ref EnvName
         S3Bucket: !Ref S3Bucket
@@ -298,9 +304,11 @@ Resources:
   LambdaDescribeTasks:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub 
-        - https://${S3Bucket}.s3.amazonaws.com/cfn-rule.yaml
-        - {S3Bucket: !Ref S3Bucket}
+      TemplateURL: !Join 
+        - '' 
+        - - 'https://'
+          - !Ref S3Bucket
+          - '.s3.amazonaws.com/cfn-rule.yaml'
       Parameters:
         EnvName: !Ref EnvName
         S3Bucket: !Ref S3Bucket
@@ -322,9 +330,11 @@ Resources:
   LambdaInactiveKeyRotation:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub 
-        - https://${S3Bucket}.s3.amazonaws.com/cfn-rule.yaml
-        - {S3Bucket: !Ref S3Bucket}
+      TemplateURL: !Join 
+        - '' 
+        - - 'https://'
+          - !Ref S3Bucket
+          - '.s3.amazonaws.com/cfn-rule.yaml'
       Parameters:
         EnvName: !Ref EnvName
         S3Bucket: !Ref S3Bucket
@@ -348,9 +358,11 @@ Resources:
   LambdaKeyRotation:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub 
-        - https://${S3Bucket}.s3.amazonaws.com/cfn-rule.yaml
-        - {S3Bucket: !Ref S3Bucket}
+      TemplateURL: !Join 
+        - '' 
+        - - 'https://'
+          - !Ref S3Bucket
+          - '.s3.amazonaws.com/cfn-rule.yaml'
       Parameters:
         EnvName: !Ref EnvName
         S3Bucket: !Ref S3Bucket
