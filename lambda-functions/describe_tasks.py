@@ -12,7 +12,7 @@ logger.setLevel(logging.INFO)
 
 number_of_minutes = os.environ['NumberOfMinutes']
 now = datetime.datetime.now()
-now_minus_three = now - datetime.timedelta(minutes = number_of_minutes)
+now_minus_minutes = now - datetime.timedelta(minutes = int(number_of_minutes))
 
 def describe_services(cluster_name, services):
     response = ecs_client.describe_services(
@@ -35,12 +35,12 @@ def describe_tasks(cluster_name, tasks):
         ).get('tasks')
     sorted_responses = []
     for r in responses:
-        if 'stoppedAt' in r:
+        if 'stoppedAt' in r and 'Scaling' not in str(r):
             sorted_responses.append(r)
     sorted_responses.sort(key=lambda d: d['stoppedAt'])
     logger.info("RESPONSE-1" + str(sorted_responses[-1]))
     logger.info("RESPONSE-2" + str(sorted_responses[-2]))
-    if sorted_responses and len(sorted_responses) >= 2 and sorted_responses[-2]['stoppedAt'].replace(tzinfo=None) > now_minus_three.replace(tzinfo=None):
+    if sorted_responses and len(sorted_responses) >= 2 and sorted_responses[-2]['stoppedAt'].replace(tzinfo=None) > now_minus_minutes.replace(tzinfo=None):
         return {'TaskArn': sorted_responses[-1]['taskArn'], 'StoppedAt': sorted_responses[-1]['stoppedAt'], 'StoppedReason': sorted_responses[-1]['stoppedReason'] }, {'TaskArn': sorted_responses[-2]['taskArn'], 'StoppedAt': sorted_responses[-2]['stoppedAt'], 'StoppedReason': sorted_responses[-2]['stoppedReason'] }
     else:
         return None, None
@@ -113,7 +113,7 @@ def lambda_handler(event, context):
     subject = os.environ['MailSubject']
     title = str(subject) + ' [' + str(environment) + ']'
     text = ""
-    message = "The following tasks have been updated within the past 3 minutes.<br />"
+    message = "The following tasks have been updated within the past " + number_of_minutes + " minutes.<br />"
     info = os.environ['Info']
     info = info.replace("'", "\"")
     info_json = loads(info)
