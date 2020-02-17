@@ -253,7 +253,7 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: 
-        Fn::Sub: "https://${S3Bucket}.s3.amazonaws.com/cfn-rule.yaml"
+        Fn::Sub: "https://${S3Bucket}.s3.amazonaws.com/cfn-deployment.yaml"
       Parameters:
         EnvName: !Ref EnvName
         S3Bucket: !Ref S3Bucket
@@ -276,7 +276,7 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: 
-        Fn::Sub: "https://${S3Bucket}.s3.amazonaws.com/cfn-rule.yaml"
+        Fn::Sub: "https://${S3Bucket}.s3.amazonaws.com/cfn-deployment.yaml"
       Parameters:
         EnvName: !Ref EnvName
         S3Bucket: !Ref S3Bucket
@@ -296,7 +296,7 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: 
-        Fn::Sub: "https://${S3Bucket}.s3.amazonaws.com/cfn-rule.yaml"
+        Fn::Sub: "https://${S3Bucket}.s3.amazonaws.com/cfn-deployment.yaml"
       Parameters:
         EnvName: !Ref EnvName
         S3Bucket: !Ref S3Bucket
@@ -319,7 +319,7 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: 
-        Fn::Sub: "https://${S3Bucket}.s3.amazonaws.com/cfn-rule.yaml"
+        Fn::Sub: "https://${S3Bucket}.s3.amazonaws.com/cfn-deployment.yaml"
       Parameters:
         EnvName: !Ref EnvName
         S3Bucket: !Ref S3Bucket
@@ -344,7 +344,7 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: 
-        Fn::Sub: "https://${S3Bucket}.s3.amazonaws.com/cfn-rule.yaml"
+        Fn::Sub: "https://${S3Bucket}.s3.amazonaws.com/cfn-deployment.yaml"
       Parameters:
         EnvName: !Ref EnvName
         S3Bucket: !Ref S3Bucket
