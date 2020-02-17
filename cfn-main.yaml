@@ -185,6 +185,21 @@ Parameters:
     Description: The time and sequence at which the Lambda function should run.(UTC)
     Type: String
     Default: ""
+  
+  S3KeyKeyRotationInactive:
+    Type: String
+    Description: Path to the zip file inside the bucket.
+  
+  LambdaTriggerKeyRotationInactive:
+    Description: Type of Lambda Trigger.
+    Type: String
+    # AllowedValues: 
+    #   - CWEvent
+    #   - ECS
+  
+  LambdaHandlerKeyRotationInactive:
+    Description: Name of Lambda Handler
+    Type: String
 
   WarningPeriodInactive:
     Type: Number
@@ -303,10 +318,10 @@ Resources:
       Parameters:
         EnvName: !Ref EnvName
         S3Bucket: !Ref S3Bucket
-        S3Key: !Ref S3KeyKeyRotation
+        S3Key: !Ref S3KeyKeyRotationInactive
         IAMRole: !GetAtt LambdaRule.Outputs.LambdaRoleARN
-        LambdaHandler: !Ref LambdaHandlerKeyRotation
-        LambdaTrigger: !Ref LambdaTriggerKeyRotation
+        LambdaHandler: !Ref LambdaHandlerKeyRotationInactive
+        LambdaTrigger: !Ref LambdaTriggerKeyRotationInactive
         WarningPeriod: !Ref WarningPeriodInactive
         ExpirationDays: !Ref ExpirationDaysInactive
         ExcludeList: !Ref ExcludeListInactive
