@@ -24,7 +24,7 @@ jobs:
       DynamdbBackupRequiredStage: "True"
       LambdaTriggerDynamoDBStage: "CWEvent"
       MaxBackupsDynamoDBStage: "5"
-      TableNamesDynamoDBStage: "staging-synchronizer-checkpoint,staging-spa-event-processor-snapshot,staging-spa-event-processor-journal,staging-spa-event-processor-checkpoint"
+      TableNamesDynamoDBStage: "staging-synchronizer-checkpoint,staging-spa-event-processor-snapshot,staging-spa-event-processor-journal,staging-spa-event-processor-checkpoint,test-dynamo-check"
       CronExpDynamoDBStage: "cron(0 5 * * ? *)"
       # Describe Tasks Parameters
       LambdaTriggerDescribeTasksStage: "ECS"
