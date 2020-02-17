@@ -93,15 +93,32 @@ def sendEmail(sender: str, recipients: list, title: str, text: str=None, html: s
         Destinations=recipients,
         RawMessage={'Data': msg.as_string()}
         ) 
+
+def append_message_to(message):
+
+    # message += '<p><strong>Report:</strong></p>'
+    message += '<table border="1" style="border-collapse: collapse; width: 70%;font-family:Calibri;">'
+
+    message += '<tbody>'
+    message += '<tr style="background-color:silver;font-family:Calibri;">'
+    message += '<td style="text-align: center; width: 10%;font-family:Calibri;"><strong>Cluster Name</strong></td>'
+    message += '<td style="text-align: center; width: 10%;font-family:Calibri;"><strong>Service Name</strong></td>'
+    message += '<td style="text-align: center; width: 25%;font-family:Calibri;"><strong>Task-1 Arn</strong></td>'
+    message += '<td style="text-align: center; width: 15%;font-family:Calibri;"><strong>Stopped Reason</strong></td>'
+    message += '<td style="text-align: center; width: 25%;font-family:Calibri;"><strong>Task-2 Arn</strong></td>'
+    message += '<td style="text-align: center; width: 15%;font-family:Calibri;"><strong>Stopped Reason</strong></td>'
+    message += '</tr>'
+    return message
+
 def append_message(message, task1, task2, cluster, service):
-    message += "<br />Cluster Name: " + cluster
-    message += "<br />Service Name: " + service 
-    message += "<br />Task Arn: " + task1['TaskArn']
-    message += "<br />Stopped At: " + str(task1['StoppedAt'])
-    message += "<br />Stopped Reason:" + str(task1['StoppedReason'])
-    message += "<br />Task Arn: " + task2['TaskArn']
-    message += "<br />Stopped At: " + str(task2['StoppedAt'])
-    message += "<br />Stopped Reason:" + str(task2['StoppedReason'])
+    message += '<tr style="font-family:Calibri;">'
+    message += '<td style="background-color: rgb(255,69,0); text-align: center; width: 10%;font-family:Calibri;">' + cluster +  '</td>'
+    message += '<td style="background-color: rgb(205,92,92); text-align: center; width: 10%;font-family:Calibri;">' + service +  '</td>'
+    message += '<td style="text-align: center; width: 25%;font-family:Calibri;">' + task1['TaskArn'] + '</td>'
+    message += '<td style="text-align: center; width: 15%;font-family:Calibri;">' + str(task1['StoppedReason']) + '</td>'
+    message += '<td style="text-align: center; width: 25%;font-family:Calibri;">' + task2['TaskArn'] + '</td>'
+    message += '<td style="text-align: center; width: 15%;font-family:Calibri;">' + str(task2['StoppedReason']) + '</td>'
+    message += '</tr>'
     return message
     
 
@@ -118,7 +135,7 @@ def lambda_handler(event, context):
     info = info.replace("'", "\"")
     info_json = loads(info)
     cluster_lists=(info_json["clusters"])
-    
+    message = append_message_to(message)
     for cluster_list in cluster_lists:
         cluster=cluster_list.get('cluster_name')
         services = cluster_list.get('service_names')
@@ -131,7 +148,12 @@ def lambda_handler(event, context):
                 logger.info(service + "-Task2: " + str(task2))
                 if task1 != None and task2 != None:
                     send_email = True
-                    message = append_message(message, task1, task2, cluster, service)
+                    
+                    message = append_message(message,task1, task2, cluster, service)
+                    
+    message += '</table>'
+                   
+
     if send_email:
         mail_response = sendEmail(sender, receipientAddresses, title, text, message, None)
         logger.info("Mail successfully sent.\n" + str(mail_response))

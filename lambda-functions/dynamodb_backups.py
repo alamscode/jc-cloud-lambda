@@ -5,17 +5,18 @@ logger.setLevel(logging.INFO)
 dynamo = boto3.client('dynamodb')
 
 def lambda_handler(event, context):
-    if os.environ['MAX_BACKUPS'] == None:
-        raise Exception("Max number of tables not specified in environmental variable.")
-    MAX_BACKUPS = os.environ['MAX_BACKUPS']
-    if os.environ['TableNames'] == None:
-        raise Exception("No table name specified in environmental variable.")
-    table_names = os.environ['TableNames']
-    table_names = table_names.split(",")
+    if os.environ['dynamodb_backup_required'] == True:
+        if os.environ['MAX_BACKUPS'] == None:
+            raise Exception("Max number of tables not specified in environmental variable.")
+        MAX_BACKUPS = os.environ['MAX_BACKUPS']
+        if os.environ['TableNames'] == None:
+            raise Exception("No table name specified in environmental variable.")
+        table_names = os.environ['TableNames']
+        table_names = table_names.split(",")
 
-    for table_name in table_names:
-        create_backup(table_name)
-        delete_old_backups(table_name, MAX_BACKUPS)
+        for table_name in table_names:
+            create_backup(table_name)
+            delete_old_backups(table_name, MAX_BACKUPS)
 
 def create_backup(table_name):    
     try:
